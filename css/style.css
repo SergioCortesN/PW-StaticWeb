@@ -121,35 +121,36 @@ body{
 }
 
 .footer_index{
-    .nav_footer{
-        display: flex;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .icons{
+        display:flex;
         justify-content: center;
-        ul{
+        align-items: center;
+        a{
+            margin: 1rem;
+            border-radius: 50%;box-sizing: border-box;
+            width: 3.5rem;
+            height: 3.5rem;
             display: flex;
-            list-style: none;
-            li{
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                margin: 0 1rem 0 1rem;
-                img{
-                    width: 3rem;
-                    height: 3rem;
-                    box-shadow: 1px 2px 4px rgba(0, 0, 0, 2);
-                }
-                h3{
-                    font-family: 'Roboto Condensed', sans-serif;
-                    font-size: 1.2rem;
-                    margin: 0.5rem 0 0.5rem 0;
-                }
-            }
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            transition: 0.3s ease;
+            font-size: 2rem;
+            color: var(--color);
         }
-    }
-    h3{
-        text-align: center;
-        font-family: 'Roboto Condensed', sans-serif;
-        font-size: 1.5rem;
-        margin: 1rem 1rem 1rem 3rem;
+
+        a:hover{
+            background-color: var(--color);
+            color: black;
+            box-shadow: 0 0 5px var(--color),
+                        0 0 10px var(--color),
+                        0 0 15px var(--color),
+                        0 0 20px var(--color);
+        }
     }
 }
 

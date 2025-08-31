@@ -61,25 +61,10 @@
       margin-right: 1rem;
     }
 
-    .fullname {
-      font-size: clamp(0.9rem, 1vw, 1rem);
-      position: absolute;
-      background-color: #fff;
-      padding: 0 0.3rem;
-      left: 43%;
-      top: 28%;
-      transition: 0.3s ease, color 0.3s ease;
-      color: gray;
-    }
-
     input {
       width: 25%;
       max-width: 400px;
       height: 2rem;
-    }
-    input:focus + .fullname {
-        transform: translateY(-100%);
-        color: rgb(216, 46, 126);
     }
     input:focus {
         outline: none;
