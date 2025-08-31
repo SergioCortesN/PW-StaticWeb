@@ -1,17 +1,53 @@
 # TecNM News
 
-TecNM News es un sitio web informativo que presenta investigaciones, miembros y datos de contacto de una red de investigadores del Tecnológico Nacional de México (TecNM). El sistema está diseñado para difundir proyectos científicos, mostrar perfiles de investigadores y facilitar la comunicación con el equipo.
+TecNM News es un sitio web informativo desarrollado como proyecto académico para la materia de **Páginas Web** en el Tecnológico Nacional de México (TecNM). El objetivo principal fue aplicar los conocimientos adquiridos sobre HTML y CSS para crear un portal que difunda investigaciones, muestre perfiles de miembros y facilite el contacto con una red de investigadores.
 
 ## Descripción
 
-El sitio cuenta con varias secciones:
+Durante el desarrollo de la página se realizaron las siguientes actividades:
 
-- **Inicio (index.html):** Resumen de las investigaciones destacadas.
-- **Miembros (miembros.html):** Tabla con información y fotos de los investigadores.
-- **Investigaciones (investigaciones.html):** Detalles de proyectos científicos, imágenes y videos relacionados.
-- **Contacto (contacto.html):** Formulario para enviar mensajes y datos de contacto de la red.
+- **Estructuración del sitio:** Se crearon varias páginas HTML (`index.html`, `miembros.html`, `investigaciones.html`, `contacto.html`) para organizar la información en secciones claras.
+- **Diseño responsivo:** Se utilizó CSS moderno, incluyendo anidamiento tipo SCSS, para lograr un diseño atractivo y adaptable a diferentes dispositivos.
+- **Galería de investigaciones:** Se incluyeron imágenes y descripciones de proyectos científicos relevantes.
+- **Listado de miembros:** Se implementó una tabla con fotos y datos de los investigadores participantes.
+- **Formulario de contacto:** Se desarrolló un formulario funcional para que los usuarios puedan enviar mensajes.
+- **Navegación intuitiva:** Se añadió un menú de navegación para facilitar el acceso a todas las secciones.
 
-El diseño utiliza CSS moderno (con anidamiento tipo SCSS) para una experiencia visual atractiva y responsiva.
+### Ejemplo de la página principal (`index.html`):
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>TecNM News - Inicio</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>TecNM News</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="miembros.html">Miembros</a></li>
+        <li><a href="investigaciones.html">Investigaciones</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <h2>Bienvenidos a TecNM News</h2>
+      <p>Descubre las investigaciones más recientes y conoce a los miembros destacados de nuestra red.</p>
+      <img src="images/investigaciones/alzheimer.png" alt="Investigación sobre Alzheimer" width="300">
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2025 TecNM News</p>
+  </footer>
+</body>
+</html>
+```
 
 ## Requerimientos
 
@@ -78,7 +114,3 @@ El diseño utiliza CSS moderno (con anidamiento tipo SCSS) para una experiencia 
 4. Haz push a la rama:  
    `git push origin mi-nueva-funcionalidad`
 5. Abre un Pull Request.
-
-## Licencia
-
-Este proyecto está bajo la Licencia MIT. Consulta el archivo `LICENSE` para más detalles.
