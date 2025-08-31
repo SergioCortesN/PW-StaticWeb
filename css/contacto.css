@@ -25,20 +25,18 @@
       font-size: clamp(1rem, 1.5vw, 1.8rem);
       transition: transform 0.3s;
 
-      &:hover {
-        transform: scale(1.4);
-      }
-
       a {
         text-decoration: none;
         color: rgb(236, 157, 194);
         font-weight: bold;
         text-shadow: 0.5px 0.5px 0.5px black;
-
-        &:hover {
+      }
+      a:hover {
           color: rgb(216, 46, 126);
         }
-      }
+    }
+    p:hover {
+        transform: scale(1.4);
     }
   }
 }
@@ -78,23 +76,22 @@
       width: 25%;
       max-width: 400px;
       height: 2rem;
-
-      &:focus + .fullname {
+    }
+    input:focus + .fullname {
         transform: translateY(-100%);
         color: rgb(216, 46, 126);
-      }
-
-      &:focus {
+    }
+    input:focus {
         outline: none;
         border-color: rgb(216, 46, 126);
-      }
     }
   }
+
 
   .div_type {
     margin-bottom: 1rem;
 
-    select {
+    select{
       width: 80%;
       max-width: 400px;
       padding: 0.4rem 0.5rem;
@@ -105,20 +102,21 @@
       border-radius: 0.3rem;
       cursor: pointer;
 
-      &:hover {
-        border-color: rgb(111, 24, 101);
+      option:nth-child(even) {
+        background-color: rgb(250, 204, 246);
       }
+      
+    }
 
-      &:focus {
+    select:hover{
+        border-color: rgb(111, 24, 101);
+    }
+
+    :focus {
         outline: none;
         border-color: rgb(173, 28, 156);
         box-shadow: 0 0 5px rgba(208, 0, 255, 0.5);
       }
-
-      option:nth-child(even) {
-        background-color: rgb(250, 204, 246);
-      }
-    }
   }
 
   .div_message {
@@ -137,11 +135,11 @@
       height: 10rem;
       resize: none;
       margin-bottom: 1rem;
+    }
 
-      &:focus {
+    textarea:focus {
         outline: none;
         border: 2px solid rgb(216, 46, 126);
-      }
     }
 
     #submit {
@@ -151,10 +149,9 @@
       background-color: rgb(248, 224, 235);
       outline: none;
       border: 1px solid rgb(216, 46, 126);
-
-      &:hover {
+    }
+    #submit:hover {
         background-color: rgb(237, 188, 210);
-      }
     }
   }
 }

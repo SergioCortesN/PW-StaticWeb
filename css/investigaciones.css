@@ -30,13 +30,14 @@
             text-decoration: none;
             color: black;
             font-family: 'Roboto Condensed', sans-serif;
-            &:hover{
+
+        }
+
+        a:hover{
                 background-color: rgb(167, 25, 91);
                 color: white;
                 transition: 0.5s;
             }
-
-        }
     }
 }
 
@@ -59,14 +60,16 @@
         opacity: 0;
         pointer-events: none;
     }
-    &:hover iframe{
+    
+}
+
+.header_article:hover iframe{
         opacity: 1;
     }
 
-    &:hover img{
+    .header_articlehover img{
         opacity: 0;
     }
-}
 
 .main_new{
     h1{
