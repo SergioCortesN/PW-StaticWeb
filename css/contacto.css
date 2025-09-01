@@ -134,6 +134,7 @@
       background-color: rgb(248, 224, 235);
       outline: none;
       border: 1px solid rgb(216, 46, 126);
+      border-radius: 5px;
     }
     #submit:hover {
         background-color: rgb(237, 188, 210);

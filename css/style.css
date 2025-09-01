@@ -150,6 +150,9 @@ body{
                         0 0 10px var(--color),
                         0 0 15px var(--color),
                         0 0 20px var(--color);
+            img{
+                filter: invert(1) sepia(1) saturate(5) hue-rotate(180deg)
+            }
         }
     }
 }
