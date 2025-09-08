@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+.main_inv{
+    h1{
+        color: palevioletred;
+        font-size: 3rem;
+        -webkit-text-stroke: 1px black;
+        text-align: center;
+        text-shadow: black 0.1rem 0.1rem 0.02rem;
+    }
+    section{
+        article{
+            position: relative;
+            overflow: hidden;
+            background-color: rgba(232, 135, 180, 0.114);
+            margin: 2rem;
+            padding: 2rem;
+            box-shadow: 5px 3px 5px black;
+            border-radius: 3rem 
+        }
+    }
+    footer{
+        text-align: center;    
+        a{
+            font-size: 1.2rem;
+            border: 2px solid rgb(167, 25, 91);
+            background-color: rgb(241, 190, 190);
+            padding: 0.5%;
+            border-radius: 1rem;
+            text-decoration: none;
+            color: black;
+            font-family: 'Roboto Condensed', sans-serif;
+
+        }
+
+        a:hover{
+                background-color: rgb(167, 25, 91);
+                color: white;
+                transition: 0.5s;
+            }
+    }
+}
+
+.header_article{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 50%;
+    height: 20rem;
+    margin-left: 25%;
+    img, iframe{
+        position: absolute;
+        width: 100%;
+        border-radius: 3rem;
+        box-shadow: 5px 3px 5px black;
+        transition: 0.5s;
+    }
+    iframe{
+        height: 100%;
+        opacity: 0;
+        pointer-events: none;
+    }
+    
+}
+
+.header_article:hover iframe{
+        opacity: 1;
+    }
+
+    .header_articlehover img{
+        opacity: 0;
+    }
+
+.main_new{
+    h1{
+        color: black;
+        text-shadow: 1px 2px 5px rgb(75, 8, 75);
+        font-family: 'Roboto Condensed', sans-serif;
+    }
+    p{
+        font-family: 'Roboto Condensed', sans-serif;
+        font-size: 1.5rem;
+        text-align: justify;
+    }
+}

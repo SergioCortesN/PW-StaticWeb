@@ -1,0 +1,92 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+.main_contacto h1 {
+    color: rgb(112, 216, 188);
+    font-size: clamp(2rem, 4vw, 3rem);
+    -webkit-text-stroke: 1px black;
+    text-shadow: black 0.1rem 0.1rem 0.02rem;
+}
+
+.main_contacto h3 {
+    color: rgb(12, 126, 105);
+    text-shadow: 1px 1px 1px rgb(0, 0, 0);
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.main_contacto .div_text p {
+    display: inline-block;
+    color: black;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: clamp(1rem, 1.5vw, 1.8rem);
+    transition: transform 0.3s;
+}
+
+.main_contacto .div_text a {
+    text-decoration: none;
+    color: rgb(46, 216, 176);
+    font-weight: bold;
+    text-shadow: 0.5px 0.5px 0.5px black;
+}
+
+.main_contacto .div_text a:hover {
+    color: rgb(20, 159, 115);
+}
+
+.main_contacto .div_text p:hover {
+    transform: scale(1.1);
+}
+
+
+.form_contacto {
+    color: black;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: clamp(1rem, 1.2vw, 1.3rem);
+}
+
+
+.form_contacto .form-control {
+    background-color: #fff; 
+    border: 1px solid #106f57; 
+}
+
+
+.form_contacto .form-select {
+    appearance: none;
+    background-color: rgb(224, 248, 244);
+    border: 1px solid rgb(6, 88, 92);
+    cursor: pointer;
+}
+
+.form_contacto .form-select option:nth-child(even) {
+    background-color: rgb(204, 250, 240);
+}
+
+.form_contacto .form-select:hover {
+    border-color: rgb(24, 111, 99);
+}
+
+
+.form_contacto .form-control:focus,
+.form_contacto .form-select:focus {
+    outline: none;
+    border-color: rgb(28, 173, 139);
+    box-shadow: 0 0 5px rgb(4, 90, 75);
+}
+
+
+.btn-custom-contact {
+    width: 6rem;
+    height: 2.5rem;
+    background-color: rgb(224, 248, 244);
+    border: 1px solid rgb(5, 120, 76);
+    border-radius: 5px;
+    color: black;
+    transition: background-color 0.2s;
+}
+
+.btn-custom-contact:hover {
+    background-color: rgb(166, 247, 222);
+    color: black;
+}

@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
+body{
+    background-color: rgb(236, 255, 253);
+}
+
+footer{ 
+    margin-top: 2.5rem;
+    background-color: rgb(70, 146, 112);
+    color: white;
+}
+
+header{
+    margin: 1rem auto;
+    div{
+        align-items: center;
+        font-family: "Oswald", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: bold;
+        font-style: normal;
+        color: rgb(24, 187, 141);
+        text-shadow: 2px 2px 2px #054e3c;
+        -webkit-text-stroke-color: black;
+        -webkit-text-stroke-width: 1px;
+    }
+    img{
+        width: 20rem;
+        height: 10rem;
+    }
+}
+
+.navbar{
+    background-color: rgb(4, 80, 70);
+}
+
+.nav-item{
+    margin: 0rem 8rem 0rem 8rem;
+}
+
+.btn{
+    border-color: rgb(10, 110, 77);
+    background-color: rgb(123, 237, 199);
+    color:black;
+    
+}
+.btn:hover{
+    border-color: rgb(10, 110, 77);
+    background-color: rgb(13, 106, 75);
+    color:white;
+    transition: 0.5s ease;
+}
+
+#footer_1{
+    div{
+        margin-top: 1rem;
+    }
+    ul{
+        list-style: none;
+        align-items: center;
+        h6{
+            font-weight: bold;
+        }
+        li{
+            margin: 0.8rem 0rem 0rem 0rem;
+        }
+        li a{
+            text-decoration: none;
+            color: white;
+        }
+    }
+}
+.linea-divisora {
+  height: 1px;
+  background-color: #ffffff;
+  width: 98%;
+  margin: 1rem 1rem -1rem 1rem;
+}
+
+#footer_2{
+    display: flex;
+    justify-content: center;
+    margin: 0rem 0rem 1.5rem 0rem;
+    div{
+        margin-top: 1rem;
+    }
+    h6{
+        font-weight: bold;
+    }
+    a{
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    #redes-icons{
+        margin-top: -1rem;
+        padding: 0.2rem 0rem 0.5rem 4rem;
+        
+    }
+}
+
+.bg-facebook{
+    width: 27px;  
+    height: 27px;   
+    background-image: url('../images/logos/sprite.svg');
+    background-position: -19.8px -189.8px; 
+    background-repeat: no-repeat; 
+    background-size: 500px 500px; 
+    border-radius: 200px;
+}
+.bg-facebook:hover{
+    width: 27px;  
+    height: 27px;   
+    background-image: url('../images/logos/sprite.svg');
+    background-position: -181.9px -189.8px; 
+    background-repeat: no-repeat; 
+    background-size: 500px 500px; 
+    border-radius: 200px;
+    box-shadow: 0 0 5px var(--color),
+                0 0 10px var(--color),
+                0 0 15px var(--color),
+                0 0 20px var(--color);
+}
+
+.bg-tiktok{
+    margin-left: 1rem;
+    width: 27px;  
+    height: 27px;   
+    background-image: url('../images/logos/sprite.svg');
+    background-position: -92.8px -189.8px; 
+    background-repeat: no-repeat; 
+    background-size: 500px 500px; 
+    border-radius: 200px;
+}
+.bg-tiktok:hover{
+    width: 27px;  
+    height: 27px;   
+    background-image: url('../images/logos/sprite.svg');
+    background-position: -254.9px -190px; 
+    background-repeat: no-repeat; 
+    background-size: 500px 500px; 
+    border-radius: 200px;
+    box-shadow: 0 0 5px var(--color),
+                0 0 10px var(--color),
+                0 0 15px var(--color),
+                0 0 20px var(--color);
+}
+
+.bg-whatsapp{
+    width: 27px;  
+    height: 27px;   
+    background-image: url('../images/logos/sprite.svg');
+    background-position: -19.8px -262.8px; 
+    background-repeat: no-repeat; 
+    background-size: 500px 500px; 
+    border-radius: 200px;
+    margin-left: 1rem;
+}
+.bg-whatsapp:hover{
+    width: 27px;  
+    height: 27px;   
+    background-image: url('../images/logos/sprite.svg');
+    background-position: -181.8px -262.8px; 
+    background-repeat: no-repeat; 
+    background-size: 500px 500px; 
+    border-radius: 200px;
+    margin-left: 1rem;
+    box-shadow: 0 0 5px var(--color),
+                0 0 10px var(--color),
+                0 0 15px var(--color),
+                0 0 20px var(--color);
+}
+
+#footer_3{
+    background-color:rgb(25, 89, 60);
+    
+}
+
+#down{
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    div{
+        margin: 1rem 0rem 1rem 0rem;
+    }
+}

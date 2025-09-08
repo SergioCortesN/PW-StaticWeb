@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Epunda+Slab:ital,wght@0,300..900;1,300..900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+main{
+    font-family: "Epunda Slab", serif;
+    font-optical-sizing: auto;
+}
+
+.tittle{
+    margin: 2rem 0rem 2rem 0rem;
+    color: rgb(6, 53, 84);
+    background-color: aquamarine;
+    border-radius: 3rem;
+    box-shadow: 1px 0px 0px 5px rgb(65, 170, 170);
+}
+
+.introduction{
+    margin: 3rem 1rem 1rem 1rem;
+
+}
+
+.img-resume{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20rem;
+    height: 12rem;
+    border-radius: 2rem;
+    box-shadow: 0.1rem 0.1rem 0rem 0.15rem rgb(32, 218, 172);
+}
+
+.we{
+    section{
+        align-items: center;
+        
+        p{
+            text-align: justify;
+            margin: 1.5rem 0rem 0rem 0rem;
+            span{
+                font-weight: bold;
+                color: rgb(10, 103, 72);
+                font-size: 1.2rem;
+            }
+        }
+        
+    }
+}
+
+.mision, .vision, .historia
+, .principios, .directivo{
+    margin: 6rem 0rem 0rem 0rem;
+}
+
+.principios{
+    ul{
+        margin: 1.5rem auto;
+        list-style:decimal;
+        text-align: justify;
+        li{
+            span{
+                color: rgb(11, 120, 93);
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+.img-principios{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20rem;
+    height: 28rem;
+    border-radius: 2rem;
+    box-shadow: 0.1rem 0.1rem 0rem 0.15rem rgb(32, 218, 172);
+}
+
+.historia-img{
+    margin: 2rem 0rem 0rem 0rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img{
+        width: 54em;
+        height: 30rem;
+        border-radius: 50px;
+        box-shadow: 2px 2px 2px 8px rgb(32, 218, 172);
+    }
+}
+
+.inv-1, .inv-2{
+    p{
+        text-align: justify;
+        span{
+            font-weight: bold;
+        }
+    }
+}
+
+.directivo{
+    h2{
+        color: rgb(3, 88, 60);
+        font-weight: bold;
+    }
+    #principal{
+        font-size: 1.5rem;
+    }
+
+}
+
+.card{
+    background-color: rgb(163, 241, 221);
+    box-shadow: 2px 2px 2px 2px black;
+}
+
+.inv-3{
+    p{
+        text-align: justify;
+        padding-bottom: 3rem;
+        span{
+            font-weight: bold;
+        }
+    }
+}
