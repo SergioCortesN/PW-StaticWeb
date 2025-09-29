@@ -10,6 +10,15 @@ switch ($action) {
             $data['institucion'] = $_POST['institucion'];
             $data['logotipo'] = $_POST['logotipo'];
             $row = $app -> create($data);
+            if ($row){
+                $alerta['mensaje'] = "Institución dada de alta correctamente";
+                $alerta['tipo'] = "success";
+                include_once("./views/alert.php");
+            }else{
+                $alerta['mensaje'] = "La institución no fue dada de alta";
+                $alerta['tipo'] = "danger";
+                include_once("./views/alert.php");
+            }
             $data = $app -> read();
             include_once("./views/institucion/index.php");
         }else{
@@ -23,6 +32,15 @@ switch ($action) {
             $data['logotipo'] = $_POST['logotipo'];
             $id = $_GET['id'];
             $row = $app -> update($data, $id); 
+            if ($row){
+                $alerta['mensaje'] = "Institución modificada correctamente";
+                $alerta['tipo'] = "success";
+                include_once("./views/alert.php");
+            }else{
+                $alerta['mensaje'] = "La institución no fue modificada";
+                $alerta['tipo'] = "danger";
+                include_once("./views/alert.php");
+            }
             $data = $app -> read();
             include_once("./views/institucion/index.php");
         }else{
@@ -36,6 +54,15 @@ switch ($action) {
         if(isset($_GET['id'])){
             $id = $_GET['id'];
             $row = $app -> delete($id);
+            if ($row){
+                $alerta['mensaje'] = "Institución eliminada correctamente";
+                $alerta['tipo'] = "success";
+                include_once("./views/alert.php");
+            }else{
+                $alerta['mensaje'] = "La institución no eliminada";
+                $alerta['tipo'] = "danger";
+                include_once("./views/alert.php");
+            }
         }
         $data = $app -> read();
         include_once("./views/institucion/index.php");

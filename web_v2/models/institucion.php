@@ -4,13 +4,20 @@ require_once "sistema.php";
 class Institucion extends Sistema{
     function create($data){
         $this -> connect();
-        $sql = "INSERT into institucion(institucion, logotipo) VALUES (:institucion, :logotipo)";
-        $sth = $this -> _DB -> prepare($sql);
-        $sth -> bindParam(":institucion", $data['institucion'], PDO::PARAM_STR);
-        $sth -> bindParam(":logotipo", $data['logotipo'], PDO::PARAM_STR);
-        $sth -> execute();
-        $rowsAffected = $sth -> rowCount();
-        return $rowsAffected;
+        $this -> _DB -> beginTransaction();
+        try {
+            $sql = "INSERT into institucion(institucion, logotipo) VALUES (:institucion, :logotipo)";
+            $sth = $this -> _DB -> prepare($sql);
+            $sth -> bindParam(":institucion", $data['institucion'], PDO::PARAM_STR);
+            $sth -> bindParam(":logotipo", $data['logotipo'], PDO::PARAM_STR);
+            $sth -> execute();
+            $rowsAffected = $sth -> rowCount();
+            $this -> _DB ->commit();
+            return $rowsAffected;
+        } catch (Exception $ex) {
+            $this -> _DB ->rollback();
+        }
+        return null;
     }
 
     function read() {
@@ -32,32 +39,55 @@ class Institucion extends Sistema{
     }
 
     function update($data, $id){
-        $this -> connect();
-        $sql = "UPDATE institucion SET institucion = :institucion, 
-        logotipo = :logotipo WHERE id_institucion = :id_institucion";
-        $sth = $this->_DB->prepare($sql);
-        $sth -> bindParam(":institucion", $data['institucion'], PDO::PARAM_STR);
-        $sth -> bindParam(":logotipo", $data['logotipo'], PDO::PARAM_STR);
-        $sth -> bindParam(":id_institucion", $id, PDO::PARAM_INT);
-        $sth -> execute();
-        $rowsAffected = $sth->rowCount();
-        return $rowsAffected;
+        if (!is_numeric($id)) {
+            return null;
+        }
+        if($this -> validate($data)){
+            $this -> connect();
+            $this -> _DB -> beginTransaction();
+            try {
+                $sql = "UPDATE institucion SET institucion = :institucion, 
+                logotipo = :logotipo WHERE id_institucion = :id_institucion";
+                $sth = $this->_DB->prepare($sql);
+                $sth -> bindParam(":institucion", $data['institucion'], PDO::PARAM_STR);
+                $sth -> bindParam(":logotipo", $data['logotipo'], PDO::PARAM_STR);
+                $sth -> bindParam(":id_institucion", $id, PDO::PARAM_INT);
+                $sth -> execute();
+                $rowsAffected = $sth->rowCount();
+                $this -> _DB ->commit();
+                return $rowsAffected;
+            } catch (Exception $ex) {
+                $this -> _DB ->rollback();
+            }
+        }
+        
+        return null;
     }
 
     function delete($id){
         if (is_numeric($id)) {
             $this -> connect();
-            $sql = "DELETE FROM institucion WHERE id_institucion = :id_institucion";
-            $sth = $this->_DB->prepare($sql);
-            $sth -> bindParam(":id_institucion", $id, PDO::PARAM_INT);
-            $sth->execute();
-            $rowsAffected = $sth->rowCount();
-            return $rowsAffected;
+            $this -> _DB ->beginTransaction();
+            try {
+                $sql = "DELETE FROM institucion WHERE id_institucion = :id_institucion";
+                $sth = $this->_DB->prepare($sql);
+                $sth -> bindParam(":id_institucion", $id, PDO::PARAM_INT);
+                $sth->execute();
+                $rowsAffected = $sth->rowCount();
+                $this -> _DB ->commit();
+                return $rowsAffected;
+            } catch (Exception $ex) {
+                $this -> _DB ->rollback();
+            }
+            return null;
         }else{
             return null;
         }
         
         
+    }
+    function validate($data){
+        return true;
     }
 }
 ?>
