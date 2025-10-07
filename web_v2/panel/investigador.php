@@ -1,6 +1,12 @@
 <?php
 require_once("../models/investigador.php");
+require_once("../models/institucion.php");
+require_once("../models/tratamiento.php");
 $app = new Investigador();
+$appInstitucion = new Institucion();
+$appTratamiento = new Tratamiento();
+$instituciones = $appInstitucion -> read();
+$tratamientos = $appTratamiento -> read();
 $action = isset($_GET['action']) ? $_GET['action'] : 'read';
 $data = array();
 include_once("./views/header.php");
@@ -10,7 +16,6 @@ switch ($action) {
             $data['primer_apellido'] = $_POST['primer_apellido'];
             $data['segundo_apellido'] = $_POST['segundo_apellido'];
             $data['nombre'] = $_POST['nombre'];
-            $data['fotografia'] = $_POST['fotografia'];
             $data['id_institucion'] = $_POST['id_institucion'];
             $data['semblance'] = $_POST['semblance'];
             $data['id_tratamiento'] = $_POST['id_tratamiento'];

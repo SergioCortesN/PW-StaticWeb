@@ -26,9 +26,9 @@
       <td><?php echo $investigador['primer_apellido']; ?></td>
       <td><?php echo $investigador['segundo_apellido']; ?></td>
       <td><?php echo $investigador['nombre']; ?></td>
-      <td><?php echo $investigador['id_institucion']; ?></td>
+      <td><?php echo $investigador['institucion']; ?></td>
       <td><?php echo substr($investigador['semblance'], 0, 100); ?></td>
-      <td><?php echo $investigador['id_tratamiento']; ?></td>
+      <td><?php echo $investigador['tratamiento']; ?></td>
       <td>
         <div class="btn-group" role="group" aria-label="Basic mixed styles example">
             <a href="investigador.php?action=update&id=<?php echo $investigador['id_investigador']; ?>" class="btn btn-warning">Editar</a>

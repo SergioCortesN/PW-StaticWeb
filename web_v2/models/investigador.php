@@ -13,10 +13,11 @@ class Investigador extends Sistema{
             $sth -> bindParam(":primer_apellido", $data['primer_apellido'], PDO::PARAM_STR);
             $sth -> bindParam(":segundo_apellido", $data['segundo_apellido'], PDO::PARAM_STR);
             $sth -> bindParam(":nombre", $data['nombre'], PDO::PARAM_STR);
-            $sth -> bindParam(":fotografia", $data['fotografia'], PDO::PARAM_STR);
             $sth -> bindParam(":id_institucion", $data['id_institucion'], PDO::PARAM_INT);
             $sth -> bindParam(":semblance", $data['semblance'], PDO::PARAM_STR);
             $sth -> bindParam(":id_tratamiento", $data['id_tratamiento'], PDO::PARAM_INT);
+            $fotografia = $this -> cargarFotografia('investigadores');
+            $sth -> bindParam(":fotografia", $fotografia, PDO::PARAM_STR);
             $sth -> execute();
             $rowsAffected = $sth -> rowCount();
             $this -> _DB ->commit();
@@ -29,7 +30,10 @@ class Investigador extends Sistema{
 
     function read() {
         $this -> connect();
-        $sth = $this -> _DB -> prepare("Select * from investigador");
+        $sql = "select inv.*, ins.institucion, t.tratamiento from investigador inv
+                left join institucion ins on inv.id_institucion = ins.id_institucion
+                left join tratamiento t on inv.id_tratamiento = t.id_tratamiento";
+        $sth = $this -> _DB -> prepare($sql);
         $sth -> execute();
         $data = $sth -> fetchAll();
         return $data;

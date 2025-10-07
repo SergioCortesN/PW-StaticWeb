@@ -7,5 +7,13 @@ class Sistema{
     function connect(){
         $this -> _DB = new PDO($this -> _DSN,$this -> _USER, $this -> _PASSWORD);
     }
+
+    function cargarFotografia($carpeta){
+        if(move_uploaded_file($_FILES['fotografia']['tmp_name'], "../images/".$carpeta."/".$_FILES['fotografia']['name'])){
+            return $_FILES['fotografia']['name'];
+        }else{
+            return null;
+        }
+    }
 }
 ?>

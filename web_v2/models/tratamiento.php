@@ -23,7 +23,7 @@ class Tratamiento extends Sistema{
         $this -> connect();
         $sth = $this -> _DB -> prepare("Select * from tratamiento");
         $sth -> execute();
-        $data = $sth -> fetchAll();
+        $data = $sth -> fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }
         
