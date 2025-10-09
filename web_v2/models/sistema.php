@@ -9,6 +9,9 @@ class Sistema{
     }
 
     function cargarFotografia($carpeta){
+        $tipos = array("image/jpg", "image/jpeg", "image/png", "image/gif");
+        $imagen = $_FILES;
+        
         if(move_uploaded_file($_FILES['fotografia']['tmp_name'], "../images/".$carpeta."/".$_FILES['fotografia']['name'])){
             return $_FILES['fotografia']['name'];
         }else{
