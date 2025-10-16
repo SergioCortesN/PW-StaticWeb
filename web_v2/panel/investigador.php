@@ -17,7 +17,7 @@ switch ($action) {
             $data['segundo_apellido'] = $_POST['segundo_apellido'];
             $data['nombre'] = $_POST['nombre'];
             $data['id_institucion'] = $_POST['id_institucion'];
-            $data['semblance'] = $_POST['semblance'];
+            $data['semblanza'] = $_POST['semblanza'];
             $data['id_tratamiento'] = $_POST['id_tratamiento'];
             $row = $app -> create($data);
             if ($row){
@@ -41,18 +41,22 @@ switch ($action) {
             $data['primer_apellido'] = $_POST['primer_apellido'];
             $data['segundo_apellido'] = $_POST['segundo_apellido'];
             $data['nombre'] = $_POST['nombre'];
-            $data['fotografia'] = $_POST['fotografia'];
             $data['id_institucion'] = $_POST['id_institucion'];
-            $data['semblance'] = $_POST['semblance'];
+            $data['semblanza'] = $_POST['semblanza'];
             $data['id_tratamiento'] = $_POST['id_tratamiento'];
+            
+            if (empty($_FILES['fotografia']['name'])) {
+                $data['fotografia'] = $_POST['fotografia_actual'];
+            }
+
             $id = $_GET['id'];
-            $row = $app -> update($data, $id); 
+            $row = $app -> update($id, $data); 
             if ($row){
-                $alerta['mensaje'] = "tratamiento modificada correctamente";
+                $alerta['mensaje'] = "Investigador modificado correctamente";
                 $alerta['tipo'] = "success";
                 include_once("./views/alert.php");
             }else{
-                $alerta['mensaje'] = "La tratamiento no fue modificada";
+                $alerta['mensaje'] = "El investigador no fue modificado";
                 $alerta['tipo'] = "danger";
                 include_once("./views/alert.php");
             }
@@ -70,11 +74,11 @@ switch ($action) {
             $id = $_GET['id'];
             $row = $app -> delete($id);
             if ($row){
-                $alerta['mensaje'] = "tratamiento eliminada correctamente";
+                $alerta['mensaje'] = "Investigador eliminado correctamente";
                 $alerta['tipo'] = "success";
                 include_once("./views/alert.php");
             }else{
-                $alerta['mensaje'] = "La tratamiento no eliminada";
+                $alerta['mensaje'] = "El investigador no fue eliminado";
                 $alerta['tipo'] = "danger";
                 include_once("./views/alert.php");
             }

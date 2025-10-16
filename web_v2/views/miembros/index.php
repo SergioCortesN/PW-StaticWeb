@@ -6,7 +6,7 @@
             <tr>
                 <th scope="col">Nombre</th>
                 <th scope="col">Fotografia</th>
-                <th scope="col">Semblance</th>
+                <th scope="col">Semblanza</th>
                 <th scope="col">Institución</th>
             </tr>
         </thead>
@@ -16,7 +16,7 @@
                     echo "<tr>";
                         echo "<td>" . $investigador['primer_apellido'] . $investigador['segundo_apellido'] . $investigador['nombre'] ."</td>";
                         echo "<td>" . $investigador['fotografia'] ."</td>";
-                        echo "<td>" . $investigador['semblance'] ."</td>";
+                        echo "<td>" . $investigador['semblanza'] ."</td>";
                         echo "<td>" . $investigador['id_institucion'] ."</td>";
                     echo "<tr>";
                 } 

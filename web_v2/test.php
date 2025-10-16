@@ -1,8 +1,7 @@
 <?php
-require_once("./models/institucion.php");
-$app=new Institucion();
-$data['institucion'] = 'Institucion prueba 5';
-$data['logotipo'] = 'logo_prueba8.png';
-$row = $app -> update($data, 6);
-print_r($row);
+require_once 'models/sistema.php';
+$sistema = new Sistema();
+$login = $sistema -> login("luislao@itecelaya.edu.mx", "123 ");
+var_dump($login);
+print_r($_SESSION);
 ?>
