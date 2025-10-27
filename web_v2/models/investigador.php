@@ -16,10 +16,37 @@ class Investigador extends Sistema{
             $sth -> bindParam(":id_institucion", $data['id_institucion'], PDO::PARAM_INT);
             $sth -> bindParam(":semblanza", $data['semblanza'], PDO::PARAM_STR);
             $sth -> bindParam(":id_tratamiento", $data['id_tratamiento'], PDO::PARAM_INT);
-            $fotografia = $this -> cargarFotografia('investigadores', 'fotografia');
+            $fotografia = $this->cargarFotografia('investigadores', 'fotografia');
             $sth -> bindParam(":fotografia", $fotografia, PDO::PARAM_STR);
             $sth -> execute();
             $rowsAffected = $sth -> rowCount();
+            $sql = "INSERT into usuario(correo, contrasena) 
+                    values (:correo, :contrasena)";
+            $sth = $this -> _DB -> prepare($sql);
+            $sth -> bindParam(":correo", $data['correo'], PDO::PARAM_STR);
+            $pwd = md5($data['contrasena']);
+            $sth -> bindParam(":contrasena", $pwd, PDO::PARAM_STR);
+            $sth -> execute();
+            $sql = "SELECT * FROM usuario WHERE correo = :correo";
+            $sth = $this -> _DB -> prepare($sql);
+            $sth -> bindParam(":correo", $data['correo'], PDO::PARAM_STR);
+            $sth -> execute();
+            $usuario = $sth -> fetch(PDO::FETCH_ASSOC);
+            $id_usuario = $usuario['id_usuario'];
+            $sql = "INSERT into usuario_rol(id_usuario, id_rol) VALUES (:id_usuario, 2)";
+            $sth = $this -> _DB -> prepare($sql);
+            $sth -> bindParam(":id_usuario", $id_usuario, PDO::PARAM_INT);
+            $sth -> execute();
+            $sql = "SELECT * from investigador order by id_investigador desc limit 1";
+            $sth = $this -> _DB -> prepare($sql);
+            $sth -> execute();
+            $investigador = $sth -> fetch(PDO::FETCH_ASSOC);
+            $id_investigador = $investigador['id_investigador'];
+            $sql = "UPDATE investigador set id_usuario = :id_usuario where id_investigador = :id_investigador";
+            $sth = $this -> _DB -> prepare($sql);
+            $sth -> bindParam(":id_usuario", $id_usuario, PDO::PARAM_INT);
+            $sth -> bindParam(":id_investigador", $id_investigador, PDO::PARAM_INT);
+            $sth -> execute();
             $this -> _DB ->commit();
             return $rowsAffected;
         } catch (Exception $ex) {
@@ -62,20 +89,25 @@ class Investigador extends Sistema{
                             semblanza = :semblanza,
                             id_tratamiento = :id_tratamiento
                         WHERE id_investigador = :id_investigador";
+                
+                $fotografia = null;
                 if (isset($_FILES['fotografia'])){
                     if ($_FILES['fotografia']['error'] == 0){
-                        $sql = "UPDATE investigador 
-                        SET primer_apellido = :primer_apellido,
-                            segundo_apellido = :segundo_apellido,
-                            nombre = :nombre,
-                            fotografia = :fotografia,
-                            id_institucion = :id_institucion,
-                            semblanza = :semblanza,
-                            id_tratamiento = :id_tratamiento
-                        WHERE id_investigador = :id_investigador";
                         $fotografia = $this->cargarFotografia('investigadores', 'fotografia');
+                        if ($fotografia !== null) {
+                            $sql = "UPDATE investigador 
+                            SET primer_apellido = :primer_apellido,
+                                segundo_apellido = :segundo_apellido,
+                                nombre = :nombre,
+                                fotografia = :fotografia,
+                                id_institucion = :id_institucion,
+                                semblanza = :semblanza,
+                                id_tratamiento = :id_tratamiento
+                            WHERE id_investigador = :id_investigador";
+                        }
                     }
                 }
+                
                 $sth = $this->_DB->prepare($sql);
                 $sth->bindParam(":id_investigador", $id, PDO::PARAM_INT);
                 $sth->bindParam(":primer_apellido", $data['primer_apellido'], PDO::PARAM_STR);
@@ -84,11 +116,8 @@ class Investigador extends Sistema{
                 $sth->bindParam(":id_institucion", $data['id_institucion'], PDO::PARAM_INT);
                 $sth->bindParam(":semblanza", $data['semblanza'], PDO::PARAM_STR);
                 $sth->bindParam(":id_tratamiento", $data['id_tratamiento'], PDO::PARAM_INT);
-                if (isset($_FILES['fotografia'])){
-                    if ($_FILES['fotografia']['error'] == 0){
-                        $fotografia = $this->cargarFotografia('investigadores', 'fotografia');
-                        $sth->bindParam(":fotografia",$fotografia, PDO::PARAM_STR);
-                    }
+                if ($fotografia !== null){
+                    $sth->bindParam(":fotografia", $fotografia, PDO::PARAM_STR);
                 }
                 $sth->execute();
                 $affectedRows = $sth->rowCount();
@@ -104,7 +133,14 @@ class Investigador extends Sistema{
     }
 
     function delete($id){
-        
+        $this -> connect();
+        $this -> _DB -> beginTransaction();
+        $sth = $this -> _DB -> prepare("DELETE from investigador 
+        where id_investigador = :id_investigador");
+        $sth -> bindParam(":id_investigador", $id, PDO::PARAM_INT);
+        $sth -> execute();
+        $rowsAffected = $sth -> rowCount();
+        $this -> _DB -> commit();
         return $rowsAffected;
     }
 }

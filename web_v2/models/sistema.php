@@ -36,6 +36,16 @@ class Sistema{
         session_destroy();   
     }
 
+    function checarRol($rol){
+        $roles = isset($_SESSION['rol']) ? $_SESSION['rol'] : array();
+        if(!in_array($rol, $roles)){
+            $alerta['mensaje'] = "No tiene permisos para ver esta sección";
+            $alerta['tipo'] = "danger";
+            include_once('./views/error.php');
+            die();
+        }
+    }
+
     public function getRoles($correo){
         $roles = array();
         $this->connect();
@@ -84,19 +94,14 @@ class Sistema{
                 if (in_array($imagen['type'], $tipos)) {
                     if ($imagen['size'] <= 1024000) { 
                         $n = rand(1, 1000000);
-                        $extension = explode(".", $imagen['name']);
-                        $extension = $extension[count($extension)-1];
+                        $partes = explode(".", $imagen['name']);
+                        $extension = end($partes);
                         $nombreArchivo = md5($imagen['name'].$imagen['size'].$n);
-                        $nombreArchivo = $nombreArchivo."".$extension;
-                        $imagen['name'] = $nombreArchivo;
+                        $nombreArchivo = $nombreArchivo.".".$extension;
                         $ruta = "../images/".$carpeta."/".$nombreArchivo;
-                        if(!file_exists($ruta)){
-                            if (move_uploaded_file($imagen['tmp_name'],$ruta)) {
+                        if (move_uploaded_file($imagen['tmp_name'], $ruta)) {
                             return $nombreArchivo;
                         }
-                        }
-                    
-                                    
                     }
                 }
             }

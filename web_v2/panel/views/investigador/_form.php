@@ -25,8 +25,8 @@
             <?php endforeach; ?>
         </select>
 
-        <label for="semblance" class="form-label">Semblanza</label>
-        <input type="text" class="form-control" id="semblance" name="semblance" placeholder="Semblanza">
+    <label for="semblanza" class="form-label">Semblanza</label>
+    <input type="text" class="form-control" id="semblanza" name="semblanza" placeholder="Semblanza">
 
         <label for="id_tratamiento" class="form-label">Tratamiento</label>
         <select class="form-select" id="id_tratamiento" name="id_tratamiento" required>

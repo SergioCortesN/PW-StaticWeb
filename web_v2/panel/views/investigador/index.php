@@ -27,7 +27,7 @@
       <td><?php echo $investigador['segundo_apellido']; ?></td>
       <td><?php echo $investigador['nombre']; ?></td>
       <td><?php echo $investigador['institucion']; ?></td>
-      <td><?php echo substr($investigador['semblance'], 0, 100); ?></td>
+  <td><?php echo substr((string)$investigador['semblanza'], 0, 100); ?></td>
       <td><?php echo $investigador['tratamiento']; ?></td>
       <td>
         <div class="btn-group" role="group" aria-label="Basic mixed styles example">

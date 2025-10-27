@@ -1,6 +1,6 @@
 <?php
-require_once("../models/institucion.php");
-$app = new Institucion();
+require_once "../models/usuario.php";
+$app = new Usuario();
 $app -> checarRol('Administrador');
 $action = isset($_GET['action']) ? $_GET['action'] : 'read';
 $data = array();
@@ -8,71 +8,67 @@ include_once("./views/header.php");
 switch ($action) {
     case 'create':
         if (isset($_POST['enviar'])) {
-            $data['institucion'] = $_POST['institucion'];
-            $data['logotipo'] = $_POST['logotipo'];
+            $data = $_POST;
             $row = $app -> create($data);
             if ($row){
-                $alerta['mensaje'] = "Institución dada de alta correctamente";
+                $alerta['mensaje'] = "Usuario dado de alta correctamente";
                 $alerta['tipo'] = "success";
                 include_once("./views/alert.php");
             }else{
-                $alerta['mensaje'] = "La institución no fue dada de alta";
+                $alerta['mensaje'] = "El usuario no fue dado de alta";
                 $alerta['tipo'] = "danger";
                 include_once("./views/alert.php");
             }
             $data = $app -> read();
-            include_once("./views/institucion/index.php");
+            include_once("./views/usuario/index.php");
         }else{
-            include_once("./views/institucion/_form.php");
+            include_once("./views/usuarios/_form.php");
         }
         break;
-
     case 'update':
         if (isset($_POST['enviar'])) {
-            $data['institucion'] = $_POST['institucion'];
-            $data['logotipo'] = $_POST['logotipo'];
+            $data = $_POST;
             $id = $_GET['id'];
-            $row = $app -> update($data, $id); 
+            $row = $app -> update($id, $data); 
             if ($row){
-                $alerta['mensaje'] = "Institución modificada correctamente";
+                $alerta['mensaje'] = "Usuario modificado correctamente";
                 $alerta['tipo'] = "success";
                 include_once("./views/alert.php");
             }else{
-                $alerta['mensaje'] = "La institución no fue modificada";
+                $alerta['mensaje'] = "El usuario no fue modificado";
                 $alerta['tipo'] = "danger";
                 include_once("./views/alert.php");
             }
             $data = $app -> read();
-            include_once("./views/institucion/index.php");
+            include_once("./views/usuario/index.php");
         }else{
             $id = $_GET['id'];
             $data = $app -> readOne($id);
-            include_once("./views/institucion/_form_update.php");
+            include_once("./views/usuarios/_form_update.php");
         }
         break;
-
     case 'delete':
         if(isset($_GET['id'])){
             $id = $_GET['id'];
             $row = $app -> delete($id);
             if ($row){
-                $alerta['mensaje'] = "Institución eliminada correctamente";
+                $alerta['mensaje'] = "Usuario eliminado correctamente";
                 $alerta['tipo'] = "success";
                 include_once("./views/alert.php");
             }else{
-                $alerta['mensaje'] = "La institución no eliminada";
+                $alerta['mensaje'] = "El usuario no fue eliminado";
                 $alerta['tipo'] = "danger";
                 include_once("./views/alert.php");
             }
         }
         $data = $app -> read();
-        include_once("./views/institucion/index.php");
+        include_once("./views/usuario/index.php");
         break;
     
     case 'read':
     default:
         $data = $app -> read();
-        include_once("./views/institucion/index.php");
+        include_once("./views/usuarios/index.php");
         break;
 }
 include_once("./views/footer.php");

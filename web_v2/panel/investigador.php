@@ -3,6 +3,7 @@ require_once("../models/investigador.php");
 require_once("../models/institucion.php");
 require_once("../models/tratamiento.php");
 $app = new Investigador();
+$app -> checarRol('Investigador');
 $appInstitucion = new Institucion();
 $appTratamiento = new Tratamiento();
 $instituciones = $appInstitucion -> read();
@@ -13,12 +14,7 @@ include_once("./views/header.php");
 switch ($action) {
     case 'create':
         if (isset($_POST['enviar'])) {
-            $data['primer_apellido'] = $_POST['primer_apellido'];
-            $data['segundo_apellido'] = $_POST['segundo_apellido'];
-            $data['nombre'] = $_POST['nombre'];
-            $data['id_institucion'] = $_POST['id_institucion'];
-            $data['semblanza'] = $_POST['semblanza'];
-            $data['id_tratamiento'] = $_POST['id_tratamiento'];
+            $data = $_POST;
             $row = $app -> create($data);
             if ($row){
                 $alerta['mensaje'] = "investigador dada de alta correctamente";
@@ -38,12 +34,7 @@ switch ($action) {
 
     case 'update':
         if (isset($_POST['enviar'])) {
-            $data['primer_apellido'] = $_POST['primer_apellido'];
-            $data['segundo_apellido'] = $_POST['segundo_apellido'];
-            $data['nombre'] = $_POST['nombre'];
-            $data['id_institucion'] = $_POST['id_institucion'];
-            $data['semblanza'] = $_POST['semblanza'];
-            $data['id_tratamiento'] = $_POST['id_tratamiento'];
+            $data = $_POST;
             
             if (empty($_FILES['fotografia']['name'])) {
                 $data['fotografia'] = $_POST['fotografia_actual'];
@@ -61,6 +52,12 @@ switch ($action) {
                 include_once("./views/alert.php");
             }
             $data = $app -> read();
+            foreach ($data as &$investigador) {
+                if (!array_key_exists('semblanza', $investigador) || $investigador['semblanza'] === null) {
+                    $investigador['semblanza'] = '';
+                }
+            }
+            unset($investigador);
             include_once("./views/investigador/index.php");
         }else{
             $id = $_GET['id'];

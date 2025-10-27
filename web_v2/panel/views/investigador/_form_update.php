@@ -9,7 +9,7 @@
         
         <label for="investigador" class="form-label">Nombre del investigador</label>
         <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $data['nombre']; ?>" placeholder="Nombre" required>
-        
+
         <label for="fotografia" class="form-label">Fotografía</label>
         <img src="/web/web_v2/images/investigadores/<?php echo $data['fotografia']; ?>" alt="" style="width: 100px; height: auto;">
         <input type="file" class="form-control" id="fotografia" name="fotografia" placeholder="foto.png">
@@ -27,8 +27,8 @@
             <?php endforeach; ?>
         </select>
         
-        <label for="semblance" class="form-label">Semblanza</label>
-        <input type="text" class="form-control" id="semblance" name="semblance" value="<?php echo $data['semblance']; ?>" placeholder="Semblanza">
+    <label for="semblanza" class="form-label">Semblanza</label>
+    <input type="text" class="form-control" id="semblanza" name="semblanza" value="<?php echo $data['semblanza']; ?>" placeholder="Semblanza">
         
         <label for="id_tratamiento" class="form-label">Tratamiento</label>
         <select class="form-select" id="id_tratamiento" name="id_tratamiento" required>
