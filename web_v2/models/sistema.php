@@ -121,7 +121,7 @@ class Sistema{
 
         $mail->Username = '22031446@itcelaya.edu.mx';
 
-        $mail->Password = 'zdoqrxqvrmizfvar';
+        $mail->Password = '';
 
         $mail->setFrom('22031446@itcelaya.edu.mx', 'Sergio Cortes Naranjo');
 
