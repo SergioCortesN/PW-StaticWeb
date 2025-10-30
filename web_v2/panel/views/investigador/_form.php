@@ -9,6 +9,12 @@
 
         <label for="investigador" class="form-label">Nombre del investigador</label>
         <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" required>
+        
+    <label for="correo" class="form-label">Correo electrónico</label>
+    <input type="email" class="form-control" id="correo" name="correo" placeholder="correo@ejemplo.com" required>
+
+    <label for="contrasena" class="form-label">Contraseña</label>
+    <input type="password" class="form-control" id="contrasena" name="contrasena" placeholder="Contraseña" required>
 
         <label for="fotografia" class="form-label">Fotografía</label>
         <input type="file" class="form-control" id="fotografia" name="fotografia" >

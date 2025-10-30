@@ -10,6 +10,12 @@
         <label for="investigador" class="form-label">Nombre del investigador</label>
         <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $data['nombre']; ?>" placeholder="Nombre" required>
 
+    <label for="correo" class="form-label">Correo electrónico</label>
+    <input type="email" class="form-control" id="correo" name="correo" value="<?php echo isset($data['correo']) ? $data['correo'] : ''; ?>" placeholder="correo@ejemplo.com" required>
+
+    <label for="contrasena" class="form-label">Contraseña (dejar en blanco para no cambiar)</label>
+    <input type="password" class="form-control" id="contrasena" name="contrasena" placeholder="Contraseña (opcional)">
+
         <label for="fotografia" class="form-label">Fotografía</label>
         <img src="/web/web_v2/images/investigadores/<?php echo $data['fotografia']; ?>" alt="" style="width: 100px; height: auto;">
         <input type="file" class="form-control" id="fotografia" name="fotografia" placeholder="foto.png">

@@ -4,14 +4,12 @@ include_once("./views/header.php");
     <main>
         <div>
             <div class="col-12">
-                &nbsp;
             </div>
         </div>
         <div class="container text-center">
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col">
-                    &nbsp;
                     <div class="card" style="width: 18rem;">
                         <img src="./images/investigaciones/paneles.png" class="card-img-top" alt="...">
                         <div class="card-body">
@@ -23,7 +21,6 @@ include_once("./views/header.php");
                     </div>
                 </div>
                 <div class="col">
-                    &nbsp;
                     <div class="card" style="width: 18rem;">
                         <img src="./images/investigaciones/alzheimer.png" class="card-img-top" alt="...">
                         <div class="card-body">
@@ -37,7 +34,6 @@ include_once("./views/header.php");
                     </div>
                 </div>
                 <div class="col">
-                    &nbsp;
                     <div class="card" style="width: 18rem;">
                         <img src="images/investigaciones/microalgas.png" class="card-img-top" alt="...">
                         <div class="card-body">

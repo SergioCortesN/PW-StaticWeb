@@ -1,5 +1,7 @@
 <?php
 session_start();
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
 class Sistema{
     var $_DSN = "mysql:host=mariadb; dbname=database;";
     var $_USER = "user";
@@ -31,7 +33,6 @@ class Sistema{
     }
 
     public function logout(){
-        session_start();
         unset($_SESSION);
         session_destroy();   
     }
@@ -58,7 +59,6 @@ class Sistema{
         $stmt->bindParam(":correo", $correo, PDO::PARAM_STR);
         
         if($stmt->execute()){
-            // Usar fetchAll o while directo, NO desperdiciar la primera fila
             while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                 $roles[] = $row['rol'];
             }
@@ -108,5 +108,84 @@ class Sistema{
         }
         return null;
     }
+
+    function enviarCorreo($para, $asunto, $mensaje, $nombre = null){
+        require '../vendor/autoload.php';
+        $mail = new PHPMailer();
+        $mail->isSMTP();
+        $mail->SMTPDebug = SMTP::DEBUG_OFF;
+        $mail->Host = 'smtp.gmail.com';
+        $mail->Port = 465;
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        $mail->SMTPAuth = true;
+
+        $mail->Username = '22031446@itcelaya.edu.mx';
+
+        $mail->Password = 'zdoqrxqvrmizfvar';
+
+        $mail->setFrom('22031446@itcelaya.edu.mx', 'Sergio Cortes Naranjo');
+
+        $mail->addAddress($para, $nombre ? $nombre : 'Red de investigadores');
+        $mail->Subject = $asunto;
+        $mail->msgHTML($mensaje);
+
+
+
+        if (!$mail->send()) {
+            return false;
+        } else {
+            return true;            
+        }
+
+
+
+    }
+
+    function cambioContrasena($data){
+        if(!filter_var($data['correo'], FILTER_VALIDATE_EMAIL)){
+            return false;
+        }
+        $this->connect();
+        $token = bin2hex(random_bytes(16));
+        $token = md5($token);
+        $token = $token.md5('cruzazulcampeon');
+        $sql = "UPDATE usuario SET token = :token WHERE correo = :correo";
+        $sth = $this->_DB->prepare($sql);
+        $sth->bindParam(":token", $token, PDO::PARAM_STR);
+        $sth->bindParam(":correo", $data['correo'], PDO::PARAM_STR);
+        $result = $sth->execute();
+        $filas = $sth->rowCount();
+        if($filas == 1){
+            $para = $data['correo'];
+            $asunto = "Cambio de contraseña";
+            $mensaje = "Se ha solicitado un cambio de contraseña. Para continuar, haga clic en el siguiente enlace: ";
+            $mensaje .= "<a href='http://localhost:8080/web/web_v2/panel/login.php?action=token&token=" . $token . "&correo=" . $data['correo'] . "'>Cambiar contraseña</a>";
+            $mail = $this->enviarCorreo($para, $asunto, $mensaje);
+            $token = $token;
+
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    function reestablecerContrasena($data){
+        if(!filter_var($data['correo'], FILTER_VALIDATE_EMAIL)){
+            return false;
+        }
+        $this->connect();
+        $contrasena = md5($data['contrasena']);
+        $sql = "UPDATE usuario SET contrasena = :contrasena, token = null WHERE correo = :correo";
+        $sth = $this->_DB->prepare($sql);
+        $sth->bindParam(":contrasena", $contrasena, PDO::PARAM_STR);
+        $sth->bindParam(":correo", $data['correo'], PDO::PARAM_STR);
+        $result = $sth->execute();
+        if($sth->rowCount() == 1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }
 ?>

@@ -47,6 +47,15 @@ class Investigador extends Sistema{
             $sth -> bindParam(":id_usuario", $id_usuario, PDO::PARAM_INT);
             $sth -> bindParam(":id_investigador", $id_investigador, PDO::PARAM_INT);
             $sth -> execute();
+
+            $asunto = "Registro en el sistema de la Red de Investigación";
+            $mensaje = "Su registro se ha realizado con éxito. Sus datos de acceso son: <br>
+            Correo: " . $data['correo'] . "<br> Contraseña: " . $data['contrasena'] . "<br>";
+            $para = $data['correo'];
+            $nombre = $data['nombre'];
+
+            $mail = $this-> enviarCorreo($para, $asunto, $mensaje, $nombre);
+
             $this -> _DB ->commit();
             return $rowsAffected;
         } catch (Exception $ex) {
@@ -68,8 +77,10 @@ class Investigador extends Sistema{
         
     function readOne($id){
         $this -> connect();
-        $sth = $this -> _DB -> prepare("Select * from investigador 
-        where id_investigador = :id_investigador");
+        // traer también el correo del usuario asociado si existe
+        $sth = $this -> _DB -> prepare("Select inv.*, u.correo from investigador inv
+        left join usuario u on inv.id_usuario = u.id_usuario
+        where inv.id_investigador = :id_investigador");
         $sth -> bindParam(":id_investigador", $id, PDO::PARAM_INT);
         $sth -> execute();
         $data = $sth -> fetch(PDO::FETCH_ASSOC);
@@ -81,6 +92,13 @@ class Investigador extends Sistema{
             $this->connect();
             $this->_DB->beginTransaction();
             try {
+                // obtener id_usuario asociado (si existe) para actualizar correo/contraseña
+                $sthUser = $this->_DB->prepare("SELECT id_usuario FROM investigador WHERE id_investigador = :id_investigador");
+                $sthUser->bindParam(":id_investigador", $id, PDO::PARAM_INT);
+                $sthUser->execute();
+                $usuarioRow = $sthUser->fetch(PDO::FETCH_ASSOC);
+                $id_usuario = $usuarioRow ? $usuarioRow['id_usuario'] : null;
+
                 $sql = "UPDATE investigador 
                         SET primer_apellido = :primer_apellido,
                             segundo_apellido = :segundo_apellido,
@@ -121,6 +139,30 @@ class Investigador extends Sistema{
                 }
                 $sth->execute();
                 $affectedRows = $sth->rowCount();
+
+                // si se proporciona correo o contraseña, actualizar tabla usuario asociada
+                if ($id_usuario !== null && (isset($data['correo']) || (isset($data['contrasena']) && $data['contrasena'] !== ''))) {
+                    $parts = array();
+                    $params = array();
+                    if (isset($data['correo'])) {
+                        $parts[] = "correo = :correo";
+                        $params[':correo'] = $data['correo'];
+                    }
+                    if (isset($data['contrasena']) && $data['contrasena'] !== '') {
+                        $parts[] = "contrasena = :contrasena";
+                        $params[':contrasena'] = md5($data['contrasena']);
+                    }
+                    if (count($parts) > 0) {
+                        $sqlUser = "UPDATE usuario SET " . implode(", ", $parts) . " WHERE id_usuario = :id_usuario";
+                        $sthU = $this->_DB->prepare($sqlUser);
+                        foreach ($params as $k => $v) {
+                            $sthU->bindValue($k, $v, PDO::PARAM_STR);
+                        }
+                        $sthU->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+                        $sthU->execute();
+                    }
+                }
+
                 $this->_DB->commit();
                 return $affectedRows;
             } catch(Exception $e){
@@ -133,15 +175,48 @@ class Investigador extends Sistema{
     }
 
     function delete($id){
+        if (!is_numeric($id)) {
+            error_log("investigador::delete called with non-numeric id: " . print_r($id, true));
+            return 0;
+        }
         $this -> connect();
         $this -> _DB -> beginTransaction();
-        $sth = $this -> _DB -> prepare("DELETE from investigador 
-        where id_investigador = :id_investigador");
-        $sth -> bindParam(":id_investigador", $id, PDO::PARAM_INT);
-        $sth -> execute();
-        $rowsAffected = $sth -> rowCount();
-        $this -> _DB -> commit();
-        return $rowsAffected;
+        try {
+            // obtener id_usuario asociado (si existe)
+            $sthGet = $this->_DB->prepare("SELECT id_usuario FROM investigador WHERE id_investigador = :id_investigador");
+            $sthGet->bindParam(":id_investigador", $id, PDO::PARAM_INT);
+            $sthGet->execute();
+            $row = $sthGet->fetch(PDO::FETCH_ASSOC);
+            $id_usuario = $row ? $row['id_usuario'] : null;
+
+            // borrar investigador
+            $sth = $this -> _DB -> prepare("DELETE from investigador 
+            where id_investigador = :id_investigador");
+            $sth -> bindParam(":id_investigador", $id, PDO::PARAM_INT);
+            $sth -> execute();
+            $rowsAffected = $sth -> rowCount();
+
+            // si había un usuario asociado, borrar sus roles y el usuario
+            if ($id_usuario !== null) {
+                // borrar entradas en usuario_rol
+                $sthUR = $this->_DB->prepare("DELETE FROM usuario_rol WHERE id_usuario = :id_usuario");
+                $sthUR->bindParam(":id_usuario", $id_usuario, PDO::PARAM_INT);
+                $sthUR->execute();
+
+                // borrar usuario
+                $sthU = $this->_DB->prepare("DELETE FROM usuario WHERE id_usuario = :id_usuario");
+                $sthU->bindParam(":id_usuario", $id_usuario, PDO::PARAM_INT);
+                $sthU->execute();
+            }
+
+            $this -> _DB -> commit();
+            return $rowsAffected;
+        } catch (Exception $e) {
+            // registrar el error para que el desarrollador pueda ver la causa real
+            error_log("Error borrando investigador id=" . $id . " : " . $e->getMessage());
+            try { $this->_DB->rollback(); } catch (Exception $_) {}
+            return null;
+        }
     }
 }
 ?>
