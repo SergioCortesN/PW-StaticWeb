@@ -48,7 +48,7 @@ $mail->SMTPAuth = true;
 $mail->Username = '22031446@itcelaya.edu.mx';
 
 //Password to use for SMTP authentication
-$mail->Password = '';
+$mail->Password = 'zdoqrxqvrmizfvar';
 
 //Set who the message is to be sent from
 //Note that with gmail you can only use your account address (same as `Username`)
