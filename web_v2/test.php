@@ -1,7 +1,7 @@
 <?php
 require_once 'models/sistema.php';
-$sistema = new Sistema();
-$login = $sistema -> login("luislao@itecelaya.edu.mx", "123 ");
-var_dump($login);
-print_r($_SESSION);
+require_once 'models/institucion.php';
+$app = new Institucion();
+$result = $app -> reporteInstituciones();
+print_r($result);
 ?>

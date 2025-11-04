@@ -1,31 +1,35 @@
-<h1>Lista de Usuarios</h1>
-<table>
-    <thead>
+﻿<h1>Usuarios</h1>
+<div class="btn-group" role="group" aria-label="Basic mixed styles example">
+    <a href="usuarios.php?action=create" class="btn btn-success">Nuevo</a>
+    <a class="btn btn-primary">Imprimir</a>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Correo</th>
+      <th scope="col">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php if (!empty($data)): ?>
+      <?php foreach ($data as $usuario): ?>
         <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Email</th>
-            <th>Acciones</th>
+          <th scope="row"><?php echo $usuario['id_usuario']; ?></th>
+          <td><?php echo $usuario['correo']; ?></td>
+          <td>
+            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+              <a href="usuarios.php?action=update&id=<?php echo $usuario['id_usuario']; ?>" class="btn btn-warning">Editar</a>
+              <a href="usuarios.php?action=roles&id=<?php echo $usuario['id_usuario']; ?>" class="btn btn-info">Roles</a>
+              <a href="usuarios.php?action=delete&id=<?php echo $usuario['id_usuario']; ?>" class="btn btn-danger">Eliminar</a>
+            </div>
+          </td>
         </tr>
-    </thead>
-    <tbody>
-        <?php if (!empty($data)): ?>
-            <?php foreach ($data as $usuario): ?>
-                <tr>
-                    <td><?php echo $usuario['id']; ?></td>
-                    <td><?php echo $usuario['nombre']; ?></td>
-                    <td><?php echo $usuario['email']; ?></td>
-                    <td>
-                        <a href="?action=update&id=<?php echo $usuario['id']; ?>">Editar</a>
-                        <a href="?action=rol&id=<?php echo $usuario['id']; ?>">Roles</a>
-                        <a href="?action=delete&id=<?php echo $usuario['id']; ?>">Eliminar</a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <tr>
-                <td colspan="5">No hay usuarios registrados</td>
-            </tr>
-        <?php endif; ?>
-    </tbody>
+      <?php endforeach; ?>
+    <?php else: ?>
+      <tr>
+        <td colspan="3">No hay usuarios registrados</td>
+      </tr>
+    <?php endif; ?>
+  </tbody>
 </table>

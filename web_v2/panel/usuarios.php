@@ -1,7 +1,10 @@
 <?php
 require_once "../models/usuario.php";
+require_once "../models/rol.php";
 $app = new Usuario();
 $app -> checarRol('Administrador');
+$appRol = new Rol();
+$roles = $appRol -> read();
 $action = isset($_GET['action']) ? $_GET['action'] : 'read';
 $data = array();
 include_once("./views/header.php");
@@ -20,7 +23,7 @@ switch ($action) {
                 include_once("./views/alert.php");
             }
             $data = $app -> read();
-            include_once("./views/usuario/index.php");
+            include_once("./views/usuarios/index.php");
         }else{
             include_once("./views/usuarios/_form.php");
         }
@@ -40,7 +43,7 @@ switch ($action) {
                 include_once("./views/alert.php");
             }
             $data = $app -> read();
-            include_once("./views/usuario/index.php");
+            include_once("./views/usuarios/index.php");
         }else{
             $id = $_GET['id'];
             $data = $app -> readOne($id);
@@ -62,9 +65,44 @@ switch ($action) {
             }
         }
         $data = $app -> read();
-        include_once("./views/usuario/index.php");
+        include_once("./views/usuarios/index.php");
         break;
     
+    case 'roles':
+        if (isset($_POST['agregar_rol'])) {
+            $id_usuario = $_GET['id'];
+            $id_rol = $_POST['id_rol'];
+            $row = $app -> addRol($id_usuario, $id_rol);
+            if ($row){
+                $alerta['mensaje'] = "Rol agregado correctamente";
+                $alerta['tipo'] = "success";
+                include_once("./views/alert.php");
+            }else{
+                $alerta['mensaje'] = "El rol no fue agregado";
+                $alerta['tipo'] = "danger";
+                include_once("./views/alert.php");
+            }
+        }
+        if (isset($_GET['eliminar_rol'])) {
+            $id_usuario = $_GET['id'];
+            $id_rol = $_GET['eliminar_rol'];
+            $row = $app -> removeRol($id_usuario, $id_rol);
+            if ($row){
+                $alerta['mensaje'] = "Rol eliminado correctamente";
+                $alerta['tipo'] = "success";
+                include_once("./views/alert.php");
+            }else{
+                $alerta['mensaje'] = "El rol no fue eliminado";
+                $alerta['tipo'] = "danger";
+                include_once("./views/alert.php");
+            }
+        }
+        $id = $_GET['id'];
+        $usuarioData = $app -> readOne($id);
+        $rolesAsignados = $app -> getRoles($id);
+        include_once("./views/usuarios/_form_roles.php");
+        break;
+
     case 'read':
     default:
         $data = $app -> read();

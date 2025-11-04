@@ -6,6 +6,7 @@ class Investigador extends Sistema{
         $this -> connect();
         $this -> _DB -> beginTransaction();
         try {
+            
             $sql = "INSERT into investigador(primer_apellido, segundo_apellido, nombre, fotografia, id_institucion, 
             semblanza, id_tratamiento) VALUES (:primer_apellido, :segundo_apellido, :nombre, :fotografia, :id_institucion, 
             :semblanza, :id_tratamiento)";
@@ -20,8 +21,7 @@ class Investigador extends Sistema{
             $sth -> bindParam(":fotografia", $fotografia, PDO::PARAM_STR);
             $sth -> execute();
             $rowsAffected = $sth -> rowCount();
-            $sql = "INSERT into usuario(correo, contrasena) 
-                    values (:correo, :contrasena)";
+            
             $sth = $this -> _DB -> prepare($sql);
             $sth -> bindParam(":correo", $data['correo'], PDO::PARAM_STR);
             $pwd = md5($data['contrasena']);
