@@ -29,6 +29,7 @@
                         <li><a href="">Nuestro Equipo</a></li>
                         <li><a href="">Principios y Ética</a></li>
                         <li><a href="">Preguntas Frecuentes (FAQ)</a></li>
+                        <li><a href="panel/login.php?action=login">Acceso</a></li>
                     </ul>
                 </div>
                 <div class="col-2">

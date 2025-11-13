@@ -6,6 +6,21 @@ class Investigador extends Sistema{
         $this -> connect();
         $this -> _DB -> beginTransaction();
         try {
+
+            $sql = "INSERT into usuario(correo, contrasena) VALUES (:correo, :contrasena)";
+            $sth = $this -> _DB -> prepare($sql);
+            $sth -> bindParam(":correo", $data['correo'], PDO::PARAM_STR);
+            $pwd = md5($data['contrasena']);
+            $sth -> bindParam(":contrasena", $pwd, PDO::PARAM_STR);
+            $sth -> execute();
+            $rowsAffected = $sth -> rowCount();
+
+            $sql = "SELECT * FROM usuario WHERE correo = :correo";
+            $sth = $this -> _DB -> prepare($sql);
+            $sth -> bindParam(":correo", $data['correo'], PDO::PARAM_STR);
+            $sth -> execute();
+            $usuario = $sth -> fetch(PDO::FETCH_ASSOC);
+            $id_usuario = $usuario['id_usuario'];
             
             $sql = "INSERT into investigador(primer_apellido, segundo_apellido, nombre, fotografia, id_institucion, 
             semblanza, id_tratamiento) VALUES (:primer_apellido, :segundo_apellido, :nombre, :fotografia, :id_institucion, 
@@ -21,22 +36,13 @@ class Investigador extends Sistema{
             $sth -> bindParam(":fotografia", $fotografia, PDO::PARAM_STR);
             $sth -> execute();
             $rowsAffected = $sth -> rowCount();
-            
-            $sth = $this -> _DB -> prepare($sql);
-            $sth -> bindParam(":correo", $data['correo'], PDO::PARAM_STR);
-            $pwd = md5($data['contrasena']);
-            $sth -> bindParam(":contrasena", $pwd, PDO::PARAM_STR);
-            $sth -> execute();
-            $sql = "SELECT * FROM usuario WHERE correo = :correo";
-            $sth = $this -> _DB -> prepare($sql);
-            $sth -> bindParam(":correo", $data['correo'], PDO::PARAM_STR);
-            $sth -> execute();
-            $usuario = $sth -> fetch(PDO::FETCH_ASSOC);
-            $id_usuario = $usuario['id_usuario'];
+
+
             $sql = "INSERT into usuario_rol(id_usuario, id_rol) VALUES (:id_usuario, 2)";
             $sth = $this -> _DB -> prepare($sql);
             $sth -> bindParam(":id_usuario", $id_usuario, PDO::PARAM_INT);
             $sth -> execute();
+
             $sql = "SELECT * from investigador order by id_investigador desc limit 1";
             $sth = $this -> _DB -> prepare($sql);
             $sth -> execute();

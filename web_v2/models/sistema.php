@@ -1,7 +1,13 @@
 <?php
 session_start();
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
+use Spipu\Html2Pdf\Html2Pdf;
+use Spipu\Html2Pdf\Exception\Html2PdfException;
+use Spipu\Html2Pdf\Exception\ExceptionFormatter;
+
+
 class Sistema{
     var $_DSN = "mysql:host=mariadb; dbname=database;";
     var $_USER = "user";
@@ -42,7 +48,7 @@ class Sistema{
         if(!in_array($rol, $roles)){
             $alerta['mensaje'] = "No tiene permisos para ver esta sección";
             $alerta['tipo'] = "danger";
-            include_once('./views/error.php');
+            include_once(__DIR__ . '/../panel/views/error.php');
             die();
         }
     }
@@ -121,7 +127,7 @@ class Sistema{
 
         $mail->Username = '22031446@itcelaya.edu.mx';
 
-        $mail->Password = 'zdoqrxqvrmizfvar';       
+        $mail->Password = '';       
 
         $mail->setFrom('22031446@itcelaya.edu.mx', 'Sergio Cortes Naranjo');
 
